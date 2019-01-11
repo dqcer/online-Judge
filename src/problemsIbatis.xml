@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+	<typeAlias type="com.jinhaoplus.oj.domain.Problem" alias="problem" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTest" alias="problemTest" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemTestResult"
+		alias="problemTestResult" />
+	<typeAlias type="com.jinhaoplus.oj.domain.ProblemSolution"
+		alias="problemSolution" />
+	<!-- About Problems -->
+	<!-- Query all problems -->
+	<select id="getAllProblems" resultClass="problem">
+		select
+		problem_id as problemId,
+		problem_digest as problemDigest,
+		problem_content as problemContent,
+		problem_language as problemLanguage,
+		problem_ac_times as problemAcTimes,
+		problem_wa_times as problemWaTimes,
+		problem_ce_times as problemCeTimes,
+		problem_solve_times as problemSolveTimes
+		from
+		tbl_ploj_problems
+		where problem_available = '1'
+	</select>
+	
+	<insert id="insertProblem" parameterClass="problem">
+		insert into tbl_ploj_problems(
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemId">
+				problem_id
+			</isNotNull>
+			<isNotNull prepend="," property="problemDigest">
+				problem_digest
+			</isNotNull>
+			<isNotNull prepend="," property="problemContent">
+				problem_content
+			</isNotNull>
+			<isNotNull prepend="," property="problemLanguage">
+				problem_language
+			</isNotNull>
+			<isNotNull prepend="," property="problemAcTimes">
+				problem_ac_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemWaTimes">
+				problem_wa_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemCeTimes">
+				problem_ce_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemSolveTimes">
+				problem_solve_times
+			</isNotNull>
+			<isNotNull prepend="," property="problemVisable">
+				problem_available
+			</isNotNull>
+			<isNotNull prepend="," property="problemPoster">
+				problem_poster
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) VALUES ( 
+    	]]>
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemId">
+				#problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemDigest">
+				#problemDigest#
+			</isNotNull>
+			<isNotNull prepend="," property="problemContent">
+				#problemContent#
+			</isNotNull>
+			<isNotNull prepend="," property="problemLanguage">
+				#problemLanguage#
+			</isNotNull>
+			<isNotNull prepend="," property="problemAcTimes">
+				#problemAcTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemWaTimes">
+				#problemWaTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemCeTimes">
+				#problemCeTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemSolveTimes">
+				#problemSolveTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemVisable">
+				#problemVisable#
+			</isNotNull>
+			<isNotNull prepend="," property="problemPoster">
+				#problemPoster#
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) 
+    	]]>  
+		<selectKey resultClass="int" type="post" keyProperty="problemId">
+			select
+			LAST_INSERT_ID() as value
+		</selectKey>
+	</insert>
+	
+	<!-- delete problem -->
+	<delete id="deleteProblemById">
+         delete from tbl_ploj_problems
+         where problem_id = #value#
+	</delete>
+	
+	
+	<!-- find problem by problemId -->
+	<select id="getProblemById" resultClass="problem">
+		select
+		problem_id as problemId,
+		problem_digest as problemDigest,
+		problem_content as problemContent,
+		problem_language as problemLanguage,
+		problem_ac_times as problemAcTimes,
+		problem_wa_times as problemWaTimes,
+		problem_ce_times as problemCeTimes,
+		problem_solve_times as problemSolveTimes,
+		problem_available as problemVisable
+		from
+		tbl_ploj_problems
+		where problem_id=#value#
+	</select>
+	
+	<!-- find problem by posterid -->
+	<select id="getProblemByPosterId" resultClass="problem">
+		select
+		problem_id as problemId,
+		problem_digest as problemDigest,
+		problem_content as problemContent,
+		problem_language as problemLanguage,
+		problem_ac_times as problemAcTimes,
+		problem_wa_times as problemWaTimes,
+		problem_ce_times as problemCeTimes,
+		problem_solve_times as problemSolveTimes,
+		problem_available as problemVisable
+		from
+		tbl_ploj_problems
+		where problem_poster=#value#
+	</select>
+	
+	<!-- update problem -->
+	<update id="updateProblem" parameterClass="problem">
+		update tbl_ploj_problems
+		<dynamic prepend="SET">
+			<isNotNull prepend="," property="problemId">
+				problem_id = #problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemDigest">
+				problem_digest = #problemDigest#
+			</isNotNull>
+			<isNotNull prepend="," property="problemContent">
+				problem_content = #problemContent#
+			</isNotNull>
+			<isNotNull prepend="," property="problemLanguage">
+				problem_language = #problemLanguage#
+			</isNotNull>
+			<isNotNull prepend="," property="problemSolveTimes">
+				problem_solve_times = #problemSolveTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemAcTimes">
+				problem_ac_times = #problemAcTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemWaTimes">
+				problem_wa_times = #problemWaTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemCeTimes">
+				problem_ce_times = #problemCeTimes#
+			</isNotNull>
+			<isNotNull prepend="," property="problemPoster">
+				problem_poster = #problemPoster#
+			</isNotNull>
+			<isNotNull prepend="," property="problemVisable">
+				problem_available = #problemVisable#
+			</isNotNull>
+		</dynamic>
+		WHERE problem_id = #problemId#
+	</update>
+	
+
+	<!-- About problem Tests -->
+	<!-- find tests by problemId -->
+	<select id="getTestsByProblemId" resultClass="problemTest">
+		select
+		testid as
+		problemTestId,
+		test_problem_id as problemId,
+		test_input as problemTestInput,
+		test_output as problemTestOutput,
+		test_visable as problemTestVisable
+		from tbl_ploj_tests
+		where test_problem_id=#value#
+	</select>
+	
+	<!-- find display tests by problemId -->
+	<select id="getVisableTestsByProblemId" resultClass="problemTest">
+		select
+		testid as
+		problemTestId,
+		test_problem_id as problemId,
+		test_input as
+		problemTestInput,
+		test_output as problemTestOutput,
+		test_visable as problemTestVisable
+		from tbl_ploj_tests
+		where test_problem_id=#value#
+		and test_visable = '1'
+	</select>
+	
+	<!-- find display tests by problemId -->
+	<select id="getAllVisableTestsByProblemId" resultClass="problemTest">
+		select
+		testid as problemTestId,
+		test_problem_id as problemId,
+		test_input as problemTestInput,
+		test_output as problemTestOutput,
+		test_visable as problemTestVisable
+		from tbl_ploj_tests
+		where test_problem_id=#value#
+	</select>
+	
+	<!-- update Tests -->
+	<update id="updateProblemTest" parameterClass="problemTest">
+		update tbl_ploj_tests
+		<dynamic prepend="SET">
+			<isNotNull prepend="," property="problemTestId">
+				testid = #problemTestId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemId">
+				test_problem_id = #problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestInput">
+				test_input = #problemTestInput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestOutput">
+				test_output = #problemTestOutput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestVisable">
+				test_visable = #problemTestVisable#
+			</isNotNull>
+		</dynamic>
+		WHERE testid = #problemTestId#
+	</update>
+
+	<!-- insert test -->
+	<insert id="insertProblemTest" parameterClass="problemTest">
+		insert into tbl_ploj_tests(
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemTestId">
+				testid
+			</isNotNull>
+			<isNotNull prepend="," property="problemId">
+				test_problem_id
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestInput">
+				test_input
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestOutput">
+				test_output
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestVisable">
+				test_visable
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) VALUES ( 
+    	]]>
+		<dynamic prepend=" ">
+			<isNotNull prepend="," property="problemTestId">
+				#problemTestId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemId">
+				#problemId#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestInput">
+				#problemTestInput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestOutput">
+				#problemTestOutput#
+			</isNotNull>
+			<isNotNull prepend="," property="problemTestVisable">
+				#problemTestVisable#
+			</isNotNull>
+		</dynamic>
+		<![CDATA[ 
+        ) 
+    	]]>  
+		<selectKey resultClass="int" type="post" keyProperty="problemTestId">
+			select
+			LAST_INSERT_ID() as value
+		</selectKey>
+	</insert>
+
+	<!-- delete test -->
+	<delete id="deleteTestsByProblemId">
+         delete from tbl_ploj_tests
+         where test_problem_id = #value#
+	</delete>
+
+	<!-- About Solution -->
+	<!-- insert Solution -->
+	<insert id="insertSolution" parameterClass="problemSolution">
+		insert into tbl_ploj_solution
+		(problem_id,code_submit,solution_coder_id,solution_language,solution_submit_time,solution_oj_result)
+		values
+		(#problemId#,#codeSubmit#,#solutionCoderId#,#solutionLanguage#,#codeSubmitTime#,#finalOJResult#)
+		<selectKey resultClass="int" type="post" keyProperty="solutionId">
+			select
+			LAST_INSERT_ID() as value
+		</selectKey>
+	</insert>
+
+	<!-- update solution -->
+	<update id="updateSolution" parameterClass="problemSolution">
+		update tbl_ploj_solution
+		set solution_oj_result = #finalOJResult#
+		WHERE solution_id = #solutionId#
+	</update>
+
+	<!-- Query solutions -->
+	<select id="getSolutionsNoCode" parameterClass="problemSolution" resultClass="problemSolution">
+		select
+		solution_id as solutionId,
+		problem_id as problemId,
+		solution_coder_id as solutionCoderId,
+		solution_language as solutionLanguage,
+		solution_submit_time as codeSubmitTime,
+		solution_oj_result as finalOJResult
+		from tbl_ploj_solution
+		<dynamic prepend="where">  
+            <isNotEmpty prepend="and" property="solutionId">  
+                solution_id = #solutionId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="solutionCoderId">  
+                solution_coder_id = #solutionCoderId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="problemId">  
+               	problem_id = #problemId#
+            </isNotEmpty>  
+            <isNotEmpty prepend="and" property="finalOJResult">  
+               	solution_oj_result = #finalOJResult#
+            </isNotEmpty>  
+         </dynamic>
+         order by solution_submit_time desc 
+	</select>
+
+	<!-- Query solutions -->
+	<select id="getSolutions" parameterClass="problemSolution" resultClass="problemSolution">
+		select
+		solution_id as solutionId,
+		problem_id as problemId,
+		code_submit as codeSubmit,
+		solution_coder_id as solutionCoderId,
+		solution_language as solutionLanguage,
+		solution_submit_time as codeSubmitTime,
+		solution_oj_result as finalOJResult
+		from tbl_ploj_solution
+		<dynamic prepend="where">  
+            <isNotEmpty prepend="and" property="solutionId">  
+                solution_id = #solutionId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="solutionCoderId">  
+                solution_coder_id = #solutionCoderId#
+            </isNotEmpty> 
+            <isNotEmpty prepend="and" property="problemId">  
+               	problem_id = #problemId#
+            </isNotEmpty>  
+         </dynamic>
+         order by solution_submit_time desc 
+	</select>
+
+	<!-- About Test Results -->
+	<!-- insert test Results -->
+	<insert id="insertTestResult" parameterClass="problemTestResult">
+		insert into
+		tbl_ploj_test_result
+		(problem_id,test_id,solution_id,result,oj_result)
+		values
+		(#problemId#,#testId#,#solutionId#,#result#,#ojResult#)
+	</insert>
+
+	<!-- find Result in some solution -->
+	<select id="getTestResultsBySolutionId" resultClass="problemTestResult">
+		SELECT
+			problem_id as problemid,
+			test_id as testid,
+			solution_id as solutionid,
+			result as result,
+			oj_result as ojresult,
+			t2.test_input as testinput,
+			t2.test_output as testoutput
+		FROM
+			tbl_ploj_test_result t1,tbl_ploj_tests t2
+		WHERE
+			t1.test_id = t2.TESTID
+		and t1.solution_id = #value#
+	</select>
+
+
+
+</sqlMap>

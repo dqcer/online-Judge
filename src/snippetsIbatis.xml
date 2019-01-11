@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+	<typeAlias type="com.jinhaoplus.oj.domain.CodeSnippet" alias="codeSnippet" />
+	
+	<!-- get some coders'codeSnippets -->
+	<select id="getCodeSnipptsByCoderId" parameterClass="codeSnippet" resultClass="codeSnippet">
+		SELECT
+			snippet_description as snippetDescription,
+			snippet as snippet,
+			snippet_coder_id as coderId,
+			saved_date as snippetSavedDate
+		FROM
+			tbl_ploj_snippets
+		WHERE
+			snippet_coder_id = #coderId#
+	</select>
+	
+	<!-- get all coders'public codeSnippets -->
+	<select id="getPublicCodeSnippts" resultClass="codeSnippet">
+		SELECT
+			snippet_description as snippetDescription,
+			snippet as snippet,
+			snippet_coder_id as coderId,
+			saved_date as snippetSavedDate
+		FROM
+			tbl_ploj_snippets
+		WHERE
+			snippet_coder_id = #coderId#
+		AND pub_pri = '1'
+	</select>
+	
+	
+</sqlMap>

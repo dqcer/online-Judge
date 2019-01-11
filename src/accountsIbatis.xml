@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap>
+	<typeAlias type="com.jinhaoplus.oj.domain.User" alias="user" />
+	
+	<select id="getCode" resultClass="String">
+		select code from tbl_ploj_bitcode_dic where code = #value#
+	</select>
+	
+	<!-- getAllUsers -->
+	<select id="getAllUsers" resultClass="user">
+		select * from tbl_ploj_user
+	</select>
+
+	<!-- getUsersByName -->
+	<select id="getUsersByName" resultClass="user">
+		select * from tbl_ploj_user where username=#value#
+	</select>
+
+	<!-- getUsersById -->
+	<select id="getUsersById" resultClass="user">
+		select * from tbl_ploj_user where userid=#value#
+	</select>
+
+	<!-- insertUsers -->
+	<insert id="insertUsers" parameterClass="user">
+		insert into tbl_ploj_user (userid,username,bitcode,email,password) values (#userid#,#username#,#bitcode#,#email#,#password#)
+	</insert>
+
+	<!-- updateUserByName -->
+	<delete id="updateUserByName" parameterClass="user">
+		update tbl_ploj_user set password=#password# where username=#username#
+	</delete>
+</sqlMap>

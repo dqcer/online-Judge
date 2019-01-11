@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 
+<link
+	href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="http://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"
+	rel="stylesheet">
+<link href="${ctx }/css/customize.css" rel="stylesheet">
+ -->
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<!-- 
+<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script
+	src="http://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="http://cdn.bootcss.com/ace/1.2.3/ace.js"
+	type="text/javascript" charset="utf-8">
+	
+</script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+	tinymce.init({
+		selector : 'textareas'
+	});
+</script>
+ -->
+</head>
+<style type="text/css" media="screen">
+</style>
+</head>
+<script type="text/javascript">
+	$(function() {
+		$('#okbutton').click(function(){
+			alert("xxx");
+		});
+		$(document).on('keyup', '.std-control', function(e) {
+			if(e.keyCode == 13){
+				$('#okbutton').click();
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="container">
+		<button id="okbutton" class="std-control">ok</button>
+		<textarea id="editor" rows="" cols=""></textarea>
+	</div>
+
+</body>
+</html>
